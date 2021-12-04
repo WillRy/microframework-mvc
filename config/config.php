@@ -18,8 +18,8 @@ define("CONF_DB_NAME", env("CONF_DB_NAME", "example"));
 /**
  * PROJECT URLs
  */
-define("CONF_URL_BASE", env("CONF_URL_BASE", "http://localhost"));
-define("CONF_URL_TEST", env("CONF_URL_BASE", "http://localhost"));
+define("CONF_URL_BASE", env("APP_URL", "http://localhost"));
+define("CONF_URL_TEST", env("APP_URL", "http://localhost"));
 
 /**
  * SITE

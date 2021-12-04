@@ -14,16 +14,7 @@ class WebController extends BaseController
         ]);
     }
 
-    public function users(?array $data)
-    {
-        $dados = (new User())->list();
-        $this->responseJSON([
-            "GET OR POST DATA" => $data,
-            "QUERY" => $dados
-        ]);
-    }
-
-    public function session(?array $data)
+    public function session()
     {
         $session = new Session();
         $session->set("test", "any value");

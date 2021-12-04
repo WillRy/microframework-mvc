@@ -23,8 +23,9 @@ abstract class BaseController
         $this->message = new Message();
     }
 
-    public function responseJSON(array $data)
+    public function responseJSON(array $data, $statusCode = 200)
     {
+        http_response_code($statusCode);
         header("Content-Type: application/json");
         echo json_encode($data);
         exit;

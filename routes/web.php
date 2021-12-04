@@ -4,8 +4,16 @@ $route->namespace("App\Controllers");
 
 $route->group(null);
 $route->get("/", "WebController:home");
-$route->get("/users", "WebController:users");
 $route->get("/session", "WebController:session");
+
+/**pesquisa de usuarios*/
+$route->group(null);
+$route->get("/users", "UserController:index");
+
+/**JSON de usuários*/
+$route->group("ajax");
+$route->get("/users", "UserController:users");
+$route->get("/users/{id}", "UserController:profile");
 
 $route->dispatch();
 

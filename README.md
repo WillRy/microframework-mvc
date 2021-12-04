@@ -66,6 +66,22 @@ if (!$stmt->rowCount()) {
 $users = $stmt->fetchAll(\PDO::FETCH_CLASS);
 ```
 
+## Rotas
+
+As rotas permitem usar os verbos HTTP: GET, POST, PUT E DELETE.
+
+Os controllers recebem os dados vindos dos parâmetros das rotas e também do post, através
+de uma variável injetada no método do controller
+
+```php
+<?php
+    //POST /usuario/{id} || /usuario/10
+    public function editar(array $data)
+    {
+        //dados 
+        var_dump($data); ["id" => 10, "first_name" => "pessoa"]
+    }
+```
 
 ## Upload de arquivos
 
