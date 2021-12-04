@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use Services\Thumb;
+use Core\Session;
 
 class WebController extends BaseController
 {
@@ -20,6 +20,18 @@ class WebController extends BaseController
         $this->responseJSON([
             "GET OR POST DATA" => $data,
             "QUERY" => $dados
+        ]);
+    }
+
+    public function session(?array $data)
+    {
+        $session = new Session();
+        $session->set("test", "any value");
+        $session->set("array", ["value" => "1"]);
+
+        $this->responseJSON([
+            "has_test" => $session->has("test"),
+            "all" => $session->all(),
         ]);
     }
 }

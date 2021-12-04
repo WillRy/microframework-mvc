@@ -5,6 +5,7 @@ $route->namespace("App\Controllers");
 $route->group(null);
 $route->get("/", "WebController:home");
 $route->get("/users", "WebController:users");
+$route->get("/session", "WebController:session");
 
 $route->dispatch();
 
