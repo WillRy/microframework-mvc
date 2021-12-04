@@ -1,0 +1,27 @@
+#Host system
+.DS_Store
+
+#JS
+node_modules
+
+#PHP
+vendor
+.composer
+
+#NODE
+.npm
+
+#IDEs
+.idea
+.vscode
+
+#Docker
+dbdata
+.bash_history
+
+
+#Framework
+.env
+
+#Storage symlink
+public/storage

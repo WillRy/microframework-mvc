@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+  modphp:
+    build: docker/modphp
+    container_name: modphp
+    entrypoint: ./docker/modphp/entrypoint.sh
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./docker/modphp/vhost.conf:/etc/apache2/sites-enabled/vhost.conf
+      - ./docker/modphp/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  db:
+    build: docker/mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    container_name: db
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/dbdata:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=example
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - app-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    restart: always
+    logging:
+      driver: "none" # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
