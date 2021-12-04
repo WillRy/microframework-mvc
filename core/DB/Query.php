@@ -266,6 +266,20 @@ abstract class Query
         }
     }
 
+    public function count(): ?int
+    {
+        $this->mountQuery();
+
+        try {
+            $stmt = Connect::getInstance()->prepare($this->query);
+            $stmt->execute($this->filter($this->params));
+
+            return $stmt->rowCount();
+        } catch (\PDOException $exception) {
+            return $this->handleError($exception);
+        }
+    }
+
 
     /**
      * @param array $data
@@ -361,7 +375,7 @@ abstract class Query
         $this->where
         $this->groupBy 
         $this->having 
-        $this->order $this->limit
+        $this->order $this->limit $this->offset
 QUERY;
     }
 
