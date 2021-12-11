@@ -10,6 +10,9 @@ $route->get("/session", "WebController:session");
 $route->group(null);
 $route->get("/users", "UserController:index");
 
+/** exemplo de debug */
+$route->get("/debug", "UserController:debug");
+
 /**JSON de usuários*/
 $route->group("ajax");
 $route->get("/users", "UserController:users");

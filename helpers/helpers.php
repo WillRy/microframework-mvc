@@ -198,10 +198,9 @@ function url(string $path = null): string
 
 function base_url(){
     $url = sprintf(
-        "%s://%s%s",
+        "%s://%s",
         isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-        $_SERVER['HTTP_HOST'],
-        $_SERVER['REQUEST_URI']
+        $_SERVER['HTTP_HOST']
     );
     return $url[strlen($url) - 1] == "/" ? substr($url,0,strlen($url)-1) : $url;
 }
@@ -476,4 +475,27 @@ function request_headers($lowerCase = false)
         
     }
     return $headers;
+}
+
+/**
+ * DEBUG
+ * @param $variable
+ * @throws ErrorException
+ */
+function debug($variable)
+{
+    $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
+
+    $dumper = 'cli' === PHP_SAPI ? new \Symfony\Component\VarDumper\Dumper\CliDumper() : new \Symfony\Component\VarDumper\Dumper\HtmlDumper();
+    $dumper->dump($cloner->cloneVar($variable));
+
+    die(1);
+}
+
+function debugContinue($variable)
+{
+    $cloner = new \Symfony\Component\VarDumper\Cloner\VarCloner();
+
+    $dumper = 'cli' === PHP_SAPI ? new \Symfony\Component\VarDumper\Dumper\CliDumper() : new \Symfony\Component\VarDumper\Dumper\HtmlDumper();
+    $dumper->dump($cloner->cloneVar($variable));
 }

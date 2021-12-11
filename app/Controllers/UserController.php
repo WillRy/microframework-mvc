@@ -67,4 +67,13 @@ class UserController extends BaseController
         ]);
     }
 
+    public function debug()
+    {
+        $user = DB::table("users")->first();
+        debugContinue($user); //debug sem parar o codigo
+        echo "test";
+
+        debug($user); //debug que pausa execução
+        echo "test";
+    }
 }
