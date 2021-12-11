@@ -9,6 +9,10 @@ use Services\Pager;
 
 class UserController extends BaseController
 {
+    /**
+     * Rota que renderiza layout que lista usuarios de forma paginada
+     * e com pesquisa
+     */
     public function index()
     {
         $search = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRIPPED) ?? "";
@@ -30,6 +34,9 @@ class UserController extends BaseController
         ]);
     }
 
+    /**
+     * Exemplo de endpoint que retorna JSON
+     */
     public function users()
     {
         $search = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRIPPED) ?? "";
@@ -51,6 +58,9 @@ class UserController extends BaseController
         ]);
     }
 
+    /**
+     * Exemplo de endpoint que retorna JSON com status code personalizado
+     */
     public function profile(array $data)
     {
         $id = filter_var($data["id"], FILTER_VALIDATE_INT);
@@ -67,6 +77,9 @@ class UserController extends BaseController
         ]);
     }
 
+    /**
+     * Exemplo de rota que mostra métodos de debug
+     */
     public function debug()
     {
         $user = DB::table("users")->first();
