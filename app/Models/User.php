@@ -38,9 +38,9 @@ class User extends Model
 
     public function paginatedUsers($search = "", $limit = 10, $offset = 0)
     {
-        if (!empty($search) && str_search($search) !== "all") {
-            $search = str_search($search);
-            $this->db->where("users.first_name LIKE :search")->params(['search' => "%{$search}%"]);
+        $searchFiltered = str_search_filter($search);
+        if (!empty($searchFiltered)) {
+            $this->db->where("users.first_name LIKE :search")->params(['search' => "%{$searchFiltered}%"]);
         }
 
         return $this->db->select(["id", "first_name", "email", "status"])->limit($limit)->offset($offset)->get();
@@ -48,9 +48,9 @@ class User extends Model
 
     public function paginatedUsersTotal($search = "")
     {
-        if (!empty($search) && str_search($search) !== "all") {
-            $search = str_search($search);
-            $this->db->where("users.first_name LIKE :search")->params(['search' => "%{$search}%"]);
+        $searchFiltered = str_search_filter($search);
+        if (!empty($searchFiltered)) {
+            $this->db->where("users.first_name LIKE :search")->params(['search' => "%{$searchFiltered}%"]);
         }
 
         return $this->db->count();

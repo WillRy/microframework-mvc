@@ -154,6 +154,16 @@ function str_search(?string $search): string
     return (!empty($search) ? $search : "all");
 }
 
+/**
+ * @param string|null $search
+ * @return string
+ */
+function str_search_filter(?string $search): string
+{
+    $search = preg_replace("/[^a-z0-9A-Z\@\ ]/", "", $search);
+    return (!empty($search) ? $search : "");
+}
+
 function pluralUSA($quantity, $singular, $plural=null)
 {
     if($quantity==1 || !strlen($singular)) return $singular;
