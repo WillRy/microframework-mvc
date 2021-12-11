@@ -3,19 +3,18 @@
 namespace App\Models;
 
 use Core\DB\DB;
+use Core\DB\Model;
 
-class User
+class User extends Model
 {
-    public $db;
-    protected $entity = "users";
+    /**
+     * opcional (identifica automatico pelo nome da model em ingles no plural)
+     */
+    //public $table = "users";
 
-    public function __construct()
-    {
-        $this->db = DB::table($this->entity);
-    }
 
     /**
-     * Lista com instancia pré configurada do query builder
+     * Lista com instancia pré configurada herdada da Model
      * @param int $limit
      * @param int $offset
      * @return array|null
@@ -33,6 +32,6 @@ class User
      */
     public function listAll()
     {
-        return DB::table($this->entity)->select(["id","first_name","email","status"])->get();
+        return DB::table($this->table)->select(["id","first_name","email","status"])->get();
     }
 }

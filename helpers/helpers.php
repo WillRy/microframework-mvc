@@ -154,6 +154,22 @@ function str_search(?string $search): string
     return (!empty($search) ? $search : "all");
 }
 
+function pluralUSA($quantity, $singular, $plural=null)
+{
+    if($quantity==1 || !strlen($singular)) return $singular;
+    if($plural!==null) return $plural;
+
+    $last_letter = strtolower($singular[strlen($singular)-1]);
+    switch($last_letter) {
+        case 'y':
+            return substr($singular,0,-1).'ies';
+        case 's':
+            return $singular.'es';
+        default:
+            return $singular.'s';
+    }
+}
+
 /**
  * ###############
  * ###   URL   ###

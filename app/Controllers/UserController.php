@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use Core\DB\DB;
 use Services\Pager;
 
@@ -37,6 +38,10 @@ class UserController extends BaseController
             $search = str_search($search);
             $query->where("users.first_name LIKE :search")->params(['search' => "%{$search}%"]);
         }
+
+        $this->responseJSON([
+            "t" => (new User())->list(),
+        ]);
 
         $total = $query->count();
         $pager = new Pager(url("/users?search={$search}&page="));
