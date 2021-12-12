@@ -19,6 +19,14 @@ Um microframework MVC simples, rápido e extremamente customizável
 - Realizar a instalação das dependências via composer (composer install)
 - Acessar a url do projeto, na rota / ou /users
 
+
+## Documentação
+
+A documentação ainda não está completa, PORÉM, existem exemplos
+de usos da camada de controllers, models, sessões e query builder
+no controller app\Controllers\UserController.php
+
+
 ## Docker
 
 O framework já conta com um ambiente docker de fácil utilização,
@@ -28,10 +36,6 @@ basta ter o docker e docker-compose instalados e executar os comandos na raiz do
  sudo chmod 777 -R ./docker
  docker-compose up -d
 ```
-
-## Documentação
-
-A documentação ainda não está completa
 
 ## Arquitetura:
 
