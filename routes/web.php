@@ -7,7 +7,7 @@ $route->get("/", "WebController:home");
 $route->get("/session", "WebController:session");
 
 /** exemplo de query builder com subquery */
-$route->get("/query", "UserController:query");
+$route->get("/query", "UserController:subquery");
 
 /**pesquisa de usuarios*/
 $route->group(null);
