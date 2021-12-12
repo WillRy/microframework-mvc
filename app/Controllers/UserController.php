@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\User;
 use Core\DB\Connect;
 use Core\DB\DB;
+use Core\DB\Query;
 use Services\Pager;
 
 class UserController extends BaseController
@@ -88,5 +89,25 @@ class UserController extends BaseController
 
         debug($user); //debug que pausa execução
         echo "test";
+    }
+
+    public function subquery()
+    {
+        /**
+         * Join com subquery
+         * joinSub
+         * leftJoinSub
+         * rightJoinSub
+         */
+
+        /** objeto de query builder, sem executar(->get(), ->first())*/
+        $emails = DB::table("mail_queue");
+
+        $users = DB::table("users as u")
+            ->selectRaw("u.id as usuario, sub.subject as assunto_email")
+            ->leftJoinSub($emails,'sub',"sub.from_email = u.email")
+            ->get();
+
+        dump($users);
     }
 }
