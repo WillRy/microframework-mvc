@@ -181,6 +181,34 @@ function pluralUSA($quantity, $singular, $plural=null)
 }
 
 /**
+ * Separa dados vindos do group_concat do Banco de dados
+ * @param string $data
+ * @param string $recordSeparator
+ * @param string $fieldSeparator
+ * @param array $fields
+ * @return array
+ */
+function splitGroupConcats(string $data, string $recordSeparator, string $fieldSeparator, array $fields)
+{
+    if(empty($data)) return [];
+
+    $records = explode($recordSeparator, $data);
+
+    $results = [];
+    foreach ($records as $record){
+        $data = explode($fieldSeparator, $record);
+
+        $final = [];
+        foreach ($fields as $key => $field) {
+            $final[$field] = $data[$key];
+        }
+        $results[] = $final;
+    }
+
+    return $results;
+}
+
+/**
  * ###############
  * ###   URL   ###
  * ###############

@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\User;
 use Core\DB\Connect;
 use Core\DB\DB;
-use Core\DB\Query;
 use Services\Pager;
 
 class UserController extends BaseController
@@ -109,5 +108,62 @@ class UserController extends BaseController
             ->get();
 
         dump($users);
+    }
+
+    public function queryBuilder()
+    {
+        $users = DB::table("users as u")
+            ->select([
+                "u.id",
+                "u.first_name",
+                'GROUP_CONCAT(distinct CONCAT_WS(";", p.id, p.`number`) SEPARATOR "|") as numeros',
+                'GROUP_CONCAT(distinct CONCAT_WS(";", a.id, a.name) SEPARATOR "|") as enderecos'
+            ])
+            ->leftJoin("phone as p ON p.user_id = u.id")
+            ->leftJoin("address as a ON a.user_id = u.id")
+            ->groupBy(["u.id"])
+            ->limit(10)
+            ->offset(0)
+            ->get();
+
+        foreach ($users as $user) {
+            $phone = splitGroupConcats($user->numeros,"|",";",["id", "number"]);
+            $address = splitGroupConcats($user->enderecos,"|",";",["id", "name"]);
+
+            $user->phone = $phone;
+            $user->address = $address;
+        }
+        $this->responseJSON($users);
+    }
+
+    public function rawQuery()
+    {
+        $stmt = Connect::getInstance()->prepare('
+            select
+                u.id,
+                u.first_name,
+                GROUP_CONCAT(distinct CONCAT_WS(";", p.id, p.`number`) SEPARATOR "|") as numeros,
+                GROUP_CONCAT(distinct CONCAT_WS(";", a.id, a.name) SEPARATOR "|") as enderecos
+            from
+                users u
+            left join phone p on
+                p.user_id = u.id
+            left join address a on
+                a.user_id = u.id
+            group by
+                u.id
+            limit 10 offset 0
+        ');
+        $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+        foreach ($result as $user) {
+            $phone = splitGroupConcats($user->numeros,"|",";",["id", "number"]);
+            $address = splitGroupConcats($user->enderecos,"|",";",["id", "name"]);
+
+            $user->phone = $phone;
+            $user->address = $address;
+        }
+        $this->responseJSON($result);
     }
 }
