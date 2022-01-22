@@ -19,6 +19,7 @@
         "coffeecode/router": "1.0.*",
         "vlucas/phpdotenv": "^5.4",
         "willry/uploader": "^1.0",
-        "symfony/var-dumper": "^5.4"
+        "symfony/var-dumper": "^5.4",
+        "willry/querybuilder": "^1.1"
     }
 }

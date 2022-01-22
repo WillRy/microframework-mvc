@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Core\DB\DB;
-use Core\DB\Model;
-use Services\Pager;
+use Willry\QueryBuilder\DB;
+use Willry\QueryBuilder\Model;
 
 class User extends Model
 {

@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use Core\DB\Connect;
-use Core\DB\DB;
 use Services\Pager;
+use Willry\QueryBuilder\Connect;
+use Willry\QueryBuilder\DB;
 
 class UserController extends BaseController
 {
