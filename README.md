@@ -14,11 +14,28 @@ Um microframework MVC simples, rápido e extremamente customizável
 
 ## Instalação
 
+**A instalação pode ser feita via composer:**
+
+```shell
+composer create-project willry/microframework-mvc . --ignore-platform-reqs
+
+# --ignore-platform-reqs: ignora versão do php e força instalação
+#   se sua versão do PHP não for compativel, execute o ambiente docker
+```
+
+
+Ou manualmente:
+
 - Clonar ou baixar o repositório
 - Configurar seu .env com as credenciais do seu banco de dados
 - Realizar a instalação das dependências via composer (composer install)
 - Acessar a url do projeto, na rota / ou /users
 
+## Dump de dados
+
+O projeto é gerado contendo uma simples listagem
+de usuários, para subir o dump de dados, use o script
+**example.sql** da raiz do projeto.
 
 ## Documentação
 
@@ -83,7 +100,7 @@ de uma variável injetada no método do controller
     public function editar(array $data)
     {
         //dados 
-        var_dump($data); ["id" => 10, "first_name" => "pessoa"]
+        var_dump($data); // ["id" => 10, "first_name" => "pessoa"]
     }
 ```
 
